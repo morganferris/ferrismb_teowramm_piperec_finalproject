@@ -1,3 +1,15 @@
+# Name: Elizabeth Piper, Morgan Ferris, Mikaela Teowratanakul
+# email: piperec@mail.uc.edu, ferrismb@mail.uc.edu, teowramm@mail.uc.edu
+# Assignment Number: Assignment Final Project
+# Due Date: April 23rd, 2024
+# Course/Section: IS 4010 Section 001
+# Semester/Year: Spring 2024
+# Brief Description of the assignment: This is a group assignment where we have to decode to messages and upload an image based on that encryption
+# Brief Description of what this module does: This module holds all of the functions including the load and show picture function and the two decryption functions for the location and movie
+# Citations:
+# Anything else that's relevant:
+
+
 import json
 from cryptography.fernet import Fernet
 from PIL import Image
@@ -7,6 +19,11 @@ from io import BytesIO
 
 
 def decrypt_location(encrypted_data, english_file):
+    '''
+    decrypts the location based on english.txt
+    @Return: decrypted_location: The clue to the location
+    @Param: encrypted_data is the code , english_file is the decryption
+    '''
     with open(english_file, 'r', encoding='utf-8') as file:
         english_words = file.readlines()
     
@@ -21,6 +38,11 @@ def decrypt_location(encrypted_data, english_file):
     return decrypted_location.strip()
 
 def decrypt_message(encrypted_message, key):
+    '''
+    This decrypts the movie we are supposed to take a movie quote from
+    @return: This function returns decrypted_message which is the movie we need to take a quote from
+    @param: encrypted_message: This is the message, but it hasn't been deciphered yet, key: is the random text we need  to decrypt
+    '''
     f = Fernet(key)
     decrypted_message = f.decrypt(encrypted_message)
     return decrypted_message.decode('utf-8')
@@ -88,7 +110,7 @@ if __name__ == "__main__":
         "38919"
 
         ]
-    english_file = "C:/Users/teowramm/git/ferrismb_teowramm_piperec_finalproject/ferrismb_teowramm_piperec_finalproject/UCEnglish.txt"
+    english_file = "../UCEnglish.txt"
     decrypted_location = decrypt_location(encrypted_data, english_file)
     print("Decrypted location:", decrypted_location)
     
@@ -98,7 +120,7 @@ if __name__ == "__main__":
     decrypted_movie_name = decrypt_message(encrypted_movie_name, key)
     print("Decrypted Movie Name:", decrypted_movie_name)
     
-    my_image = load_image("C:/Users/teowramm/git/ferrismb_teowramm_piperec_finalproject/ferrismb_teowramm_piperec_finalproject/FinalProject.jpeg")
+    my_image = load_image("../FinalProject.jpeg")
     if my_image:
         my_image.show()
     else:
